@@ -4,37 +4,51 @@ from datetime import datetime
 import pytz
 import os
 
-# API key
 API_KEY = os.getenv("API_KEY")
 
 if not API_KEY:
-    raise ValueError("API_KEY not found. Check GitHub Secrets.")
+    raise ValueError("API_KEY not found.")
 
-# Cities
 cities = ["Kochi", "Bangalore", "Mumbai"]
-
-# File name
 file_name = "weather_data.csv"
 
-# Timezones
 utc = pytz.utc
 ist = pytz.timezone('Asia/Kolkata')
 
-# Function to classify time of day
-def get_time_of_day(hour):
-    if 5 <= hour < 12:
+def get_time_slot(hour):
+    if 7 <= hour <= 9:
         return "Morning"
-    elif 12 <= hour < 18:
+    elif 13 <= hour <= 15:
         return "Afternoon"
-    else:
+    elif 21 <= hour <= 23:
         return "Night"
+    else:
+        return None  
+
+current_time = datetime.utcnow().replace(tzinfo=utc).astimezone(ist)
+current_hour = current_time.hour
+
+time_slot = get_time_slot(current_hour)
+
+if time_slot is None:
+    print("Outside allowed time window. Skipping run.")
+    exit()
+
+if os.path.exists(file_name):
+    existing_df = pd.read_csv(file_name)
+    
+    today_str = current_time.strftime("%Y-%m-%d")
+    
+    if not existing_df.empty:
+        existing_df["Date"] = pd.to_datetime(existing_df["DateTime"]).dt.date
+        
+        today_data = existing_df[existing_df["Date"] == pd.to_datetime(today_str).date()]
+        
+        if time_slot in today_data["TimeOfDay"].values:
+            print(f"{time_slot} data already exists for today. Skipping.")
+            exit()
 
 data = []
-
-# Current IST time
-current_time_ist = datetime.utcnow().replace(tzinfo=utc).astimezone(ist)
-current_hour = current_time_ist.hour
-time_of_day = get_time_of_day(current_hour)
 
 for city in cities:
     try:
@@ -42,35 +56,32 @@ for city in cities:
         response = requests.get(url, timeout=10).json()
 
         if 'main' not in response:
-            print(f"API error for {city}: {response}")
+            print(f"API error for {city}")
             continue
 
         temp = round(response['main']['temp'], 2)
         humidity = response['main']['humidity']
 
         data.append([
-            current_time_ist.strftime("%Y-%m-%d %H:%M"),
-            time_of_day,   # 👈 moved here
+            current_time.strftime("%Y-%m-%d %H:%M"),
+            time_slot,
             city,
             temp,
             humidity
         ])
 
     except Exception as e:
-        print(f"Error for {city}: {e}")
+        print(f"Error: {e}")
 
-# Prevent empty save
 if not data:
-    print("No data to save")
+    print("No data collected.")
     exit()
 
-# DataFrame with new column order
 df = pd.DataFrame(data, columns=["DateTime", "TimeOfDay", "City", "Temp", "Humidity"])
 
-# Save
 if os.path.exists(file_name):
     df.to_csv(file_name, mode='a', header=False, index=False)
 else:
     df.to_csv(file_name, index=False)
 
-print(f"Data saved at {current_time_ist.strftime('%Y-%m-%d %H:%M IST')}")
+print(f"{time_slot} data saved at {current_time.strftime('%Y-%m-%d %H:%M IST')}")
