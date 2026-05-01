@@ -1,25 +1,4 @@
 DateTime,TimeOfDay,City,Temp,Humidity
-2026-04-26 22:41,Night,Kochi,29.99,78
-2026-04-26 22:41,Night,Bangalore,28.19,45
-2026-04-26 22:41,Night,Mumbai,29.99,79
-2026-04-27 23:21,Night,Kochi,29.99,79
-2026-04-27 23:21,Night,Bangalore,29.07,50
-2026-04-27 23:21,Night,Mumbai,28.99,79
-2026-04-28 23:36,Night,Kochi,26.99,82
-2026-04-28 23:36,Night,Bangalore,27.73,54
-2026-04-28 23:36,Night,Mumbai,28.99,84
-2026-04-29 15:57,Afternoon,Kochi,33.99,72
-2026-04-29 15:57,Afternoon,Bangalore,34.53,40
-2026-04-29 15:57,Afternoon,Mumbai,32.99,52
-2026-04-29 23:29,Night,Kochi,25.99,82
-2026-04-29 23:29,Night,Bangalore,24.75,67
-2026-04-29 23:29,Night,Mumbai,28.99,79
-2026-04-30 15:56,Afternoon,Kochi,30.51,70
-2026-04-30 15:56,Afternoon,Bangalore,32.93,44
-2026-04-30 15:56,Afternoon,Mumbai,32.99,62
-2026-04-30 23:22,Night,Kochi,24.99,79
-2026-04-30 23:22,Night,Bangalore,24.16,75
-2026-04-30 23:22,Night,Mumbai,29.99,74
 2026-05-01 15:37,Afternoon,Kochi,33.99,70
 2026-05-01 15:37,Afternoon,Bangalore,33.27,44
 2026-05-01 15:37,Afternoon,Mumbai,31.99,62
