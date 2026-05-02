@@ -5,3 +5,6 @@ DateTime,TimeOfDay,City,Temp,Humidity
 2026-05-01 21:00,Night,Kochi,26.99,79
 2026-05-01 21:00,Night,Bangalore,31.04,52
 2026-05-01 21:00,Night,Mumbai,29.99,74
+2026-05-02 13:33,Afternoon,Kochi,33.99,70
+2026-05-02 13:33,Afternoon,Bangalore,33.1,48
+2026-05-02 13:33,Afternoon,Mumbai,32.99,55
