@@ -9,22 +9,24 @@ st.set_page_config(
 )
 
 # Dashboard title
-st.title("🌦 Weather Monitoring Dashboard")
+st.title("Weather Monitoring Dashboard")
 
 # Load data
 @st.cache_data(ttl=60)
 def load_data():
     df = pd.read_csv("weather_data.csv")
+
     df["DateTime"] = pd.to_datetime(df["DateTime"])
-    
-    # Create separate Date column
+
+    # Separate date column
     df["Date"] = df["DateTime"].dt.date
-    
+
     return df
 
 # Read CSV
 try:
     df = load_data()
+
 except Exception as e:
     st.error(f"Error loading data: {e}")
     st.stop()
@@ -41,15 +43,15 @@ current_slot = latest_df.iloc[0]["TimeOfDay"]
 # Header info
 st.markdown(
     f"""
-    ### 🕒 Updated At: {latest_time.strftime('%Y-%m-%d %H:%M IST')}
-    ### 🌅 Current Slot: {current_slot}
+    ### Updated At: {latest_time.strftime('%Y-%m-%d %H:%M IST')}
+    ### Current Slot: {current_slot}
     """
 )
 
 st.divider()
 
 # KPI Section
-st.subheader("📊 Current Weather KPIs")
+st.subheader("Current Weather KPIs")
 
 col1, col2, col3 = st.columns(3)
 
@@ -87,7 +89,7 @@ today_df = df[df["Date"] == current_date]
 # Time order
 time_order = ["Morning", "Afternoon", "Night"]
 
-# Temperature variation during current day
+# Current Day Temperature Variation
 st.subheader("🌡 Current Day Temperature Variation")
 
 fig_day_temp = px.line(
@@ -102,7 +104,7 @@ fig_day_temp = px.line(
 
 st.plotly_chart(fig_day_temp, use_container_width=True)
 
-# Humidity variation during current day
+# Current Day Humidity Variation
 st.subheader("💧 Current Day Humidity Variation")
 
 fig_day_humidity = px.line(
@@ -117,6 +119,8 @@ fig_day_humidity = px.line(
 
 st.plotly_chart(fig_day_humidity, use_container_width=True)
 
+st.divider()
+
 # Filters
 st.subheader("🎛 Trend Filters")
 
@@ -125,7 +129,7 @@ filter_col1, filter_col2 = st.columns(2)
 with filter_col1:
     selected_slot = st.selectbox(
         "Select Time Of Day",
-        ["All", "Morning", "Afternoon", "Night"]
+        ["Morning", "Afternoon", "Night"]
     )
 
 with filter_col2:
@@ -142,16 +146,17 @@ filtered_df = df[
     df["DateTime"] >= latest_date - pd.Timedelta(days=selected_days)
 ]
 
-# Filter by time slot
-if selected_slot != "All":
-    filtered_df = filtered_df[
-        filtered_df["TimeOfDay"] == selected_slot
-    ]
+# Filter by selected slot
+filtered_df = filtered_df[
+    filtered_df["TimeOfDay"] == selected_slot
+]
 
 st.divider()
 
 # Temperature Trend
-st.subheader(f"📈 Temperature Trends - Last {selected_days} Days")
+st.subheader(
+    f"📈 {selected_slot} Temperature Trends - Last {selected_days} Days"
+)
 
 fig_temp = px.line(
     filtered_df,
@@ -165,7 +170,9 @@ fig_temp = px.line(
 st.plotly_chart(fig_temp, use_container_width=True)
 
 # Humidity Trend
-st.subheader(f"💧 Humidity Trends - Last {selected_days} Days")
+st.subheader(
+    f"💧 {selected_slot} Humidity Trends - Last {selected_days} Days"
+)
 
 fig_humidity = px.line(
     filtered_df,
@@ -178,25 +185,7 @@ fig_humidity = px.line(
 
 st.plotly_chart(fig_humidity, use_container_width=True)
 
-# Average temperature by time slot
-st.subheader("🌅 Average Temperature by Time of Day")
-
-avg_temp = (
-    filtered_df.groupby(["TimeOfDay", "City"])["Temp"]
-    .mean()
-    .reset_index()
-)
-
-fig_avg = px.bar(
-    avg_temp,
-    x="TimeOfDay",
-    y="Temp",
-    color="City",
-    barmode="group",
-    title="Average Temperature by Time Slot"
-)
-
-st.plotly_chart(fig_avg, use_container_width=True)
+st.divider()
 
 # Raw Data
 st.subheader("📄 Raw Weather Data")
