@@ -191,6 +191,6 @@ st.divider()
 st.subheader("📄 Raw Weather Data")
 
 st.dataframe(
-    filtered_df.sort_values(by="DateTime", ascending=False),
+    df.sort_values(by="DateTime", ascending=False),
     use_container_width=True
 )
