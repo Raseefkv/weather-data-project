@@ -1,49 +1,3 @@
-# Weather Dashboard Setup
-
-You should create a **new file** named:
-
-```text
-app.py
-```
-
-Keep your existing files unchanged:
-
-```text
-weather.py
-requirements.txt
-weather_data.csv
-```
-
----
-
-# Final Project Structure
-
-```text
-weather-data-project/
-│
-├── weather.py
-├── app.py
-├── requirements.txt
-├── weather_data.csv
-```
-
----
-
-# Add This to requirements.txt
-
-```text
-requests
-pandas
-pytz
-streamlit
-plotly
-```
-
----
-
-# Full Dashboard Code (app.py)
-
-```python
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -54,7 +8,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Title
+# Dashboard title
 st.title("🌦 Weather Monitoring Dashboard")
 
 # Load CSV
@@ -80,11 +34,11 @@ latest_df = df[df["DateTime"] == latest_time]
 # Current slot
 current_slot = latest_df.iloc[0]["TimeOfDay"]
 
-# Top info
+# Top section
 st.markdown(
     f"""
-    ### Updated At: {latest_time.strftime('%Y-%m-%d %H:%M IST')}
-    ### Current Slot: {current_slot}
+    ### 🕒 Updated At: {latest_time.strftime('%Y-%m-%d %H:%M IST')}
+    ### 🌅 Current Slot: {current_slot}
     """
 )
 
@@ -103,6 +57,7 @@ for city, col in zip(cities, columns):
     city_data = latest_df[latest_df["City"] == city]
 
     if not city_data.empty:
+
         temp = city_data.iloc[0]["Temp"]
         humidity = city_data.iloc[0]["Humidity"]
 
@@ -119,7 +74,7 @@ for city, col in zip(cities, columns):
 
 st.divider()
 
-# Trend Charts
+# Temperature Trend
 st.subheader("📈 Temperature Trends")
 
 fig_temp = px.line(
@@ -147,7 +102,7 @@ fig_humidity = px.line(
 
 st.plotly_chart(fig_humidity, use_container_width=True)
 
-# Average temperature by time slot
+# Average Temperature by Time Slot
 st.subheader("🌅 Average Temperature by Time of Day")
 
 avg_temp = (
@@ -169,78 +124,8 @@ st.plotly_chart(fig_avg, use_container_width=True)
 
 # Raw Data
 st.subheader("📄 Raw Weather Data")
-st.dataframe(df.sort_values(by="DateTime", ascending=False), use_container_width=True)
-```
 
----
-
-# Run Dashboard Locally
-
-Open terminal inside project folder:
-
-```bash
-streamlit run app.py
-```
-
----
-
-# What Happens Now
-
-Whenever:
-
-```text
-weather_data.csv updates
-```
-
-Your dashboard will automatically:
-
-* update KPIs
-* update latest timestamp
-* update charts
-* update trends
-
----
-
-# Dashboard Features
-
-## Top Section
-
-* Dashboard title
-* Last updated time
-* Current slot
-
-## KPI Cards
-
-* Kochi temperature
-* Kochi humidity
-* Bangalore temperature
-* Bangalore humidity
-* Mumbai temperature
-* Mumbai humidity
-
-## Trend Analysis
-
-* Temperature trend chart
-* Humidity trend chart
-* Average temperature by time slot
-
-## Raw Data Table
-
-* Full CSV viewer
-
----
-
-# Important
-
-Your dashboard is now:
-
-* dynamic
-* API-driven
-* auto-updating
-* portfolio-ready
-
-You now have:
-
-```text
-Automated Weather Analytics Dashboard
-```
+st.dataframe(
+    df.sort_values(by="DateTime", ascending=False),
+    use_container_width=True
+)
