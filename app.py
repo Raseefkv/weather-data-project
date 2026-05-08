@@ -79,6 +79,44 @@ for city, col in zip(cities, columns):
 
 st.divider()
 
+# Current Day Data
+current_date = latest_time.date()
+
+today_df = df[df["Date"] == current_date]
+
+# Time order
+time_order = ["Morning", "Afternoon", "Night"]
+
+# Temperature variation during current day
+st.subheader("🌡 Current Day Temperature Variation")
+
+fig_day_temp = px.line(
+    today_df,
+    x="TimeOfDay",
+    y="Temp",
+    color="City",
+    markers=True,
+    category_orders={"TimeOfDay": time_order},
+    title="Temperature Variation During Current Day"
+)
+
+st.plotly_chart(fig_day_temp, use_container_width=True)
+
+# Humidity variation during current day
+st.subheader("💧 Current Day Humidity Variation")
+
+fig_day_humidity = px.line(
+    today_df,
+    x="TimeOfDay",
+    y="Humidity",
+    color="City",
+    markers=True,
+    category_orders={"TimeOfDay": time_order},
+    title="Humidity Variation During Current Day"
+)
+
+st.plotly_chart(fig_day_humidity, use_container_width=True)
+
 # Filters
 st.subheader("🎛 Trend Filters")
 
