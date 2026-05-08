@@ -16,6 +16,10 @@ st.title("🌦 Weather Monitoring Dashboard")
 def load_data():
     df = pd.read_csv("weather_data.csv")
     df["DateTime"] = pd.to_datetime(df["DateTime"])
+    
+    # Create separate Date column
+    df["Date"] = df["DateTime"].dt.date
+    
     return df
 
 # Read CSV
@@ -113,7 +117,7 @@ st.subheader(f"📈 Temperature Trends - Last {selected_days} Days")
 
 fig_temp = px.line(
     filtered_df,
-    x="DateTime",
+    x="Date",
     y="Temp",
     color="City",
     markers=True,
@@ -127,7 +131,7 @@ st.subheader(f"💧 Humidity Trends - Last {selected_days} Days")
 
 fig_humidity = px.line(
     filtered_df,
-    x="DateTime",
+    x="Date",
     y="Humidity",
     color="City",
     markers=True,
