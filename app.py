@@ -185,12 +185,4 @@ fig_humidity = px.line(
 
 st.plotly_chart(fig_humidity, use_container_width=True)
 
-st.divider()
 
-# Raw Data
-st.subheader("📄 Raw Weather Data")
-
-st.dataframe(
-    df.sort_values(by="DateTime", ascending=False),
-    use_container_width=True
-)
