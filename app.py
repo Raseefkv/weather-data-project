@@ -90,7 +90,7 @@ today_df = df[df["Date"] == current_date]
 time_order = ["Morning", "Afternoon", "Night"]
 
 # Current Day Temperature Variation
-st.subheader("🌡 Current Day Temperature Variation")
+st.subheader("🌡 Today's Temperature Variation")
 
 fig_day_temp = px.line(
     today_df,
@@ -99,13 +99,13 @@ fig_day_temp = px.line(
     color="City",
     markers=True,
     category_orders={"TimeOfDay": time_order},
-    title="Temperature Variation During Current Day"
+    title="Temperature Changes Throughout the Day"
 )
 
 st.plotly_chart(fig_day_temp, use_container_width=True)
 
 # Current Day Humidity Variation
-st.subheader("💧 Current Day Humidity Variation")
+st.subheader("💧 Today's Humidity Variation")
 
 fig_day_humidity = px.line(
     today_df,
@@ -114,7 +114,7 @@ fig_day_humidity = px.line(
     color="City",
     markers=True,
     category_orders={"TimeOfDay": time_order},
-    title="Humidity Variation During Current Day"
+    title="Humidity Changes Throughout the Day"
 )
 
 st.plotly_chart(fig_day_humidity, use_container_width=True)
