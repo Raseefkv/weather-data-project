@@ -74,3 +74,6 @@ DateTime,TimeOfDay,City,Temp,Humidity
 2026-05-09 10:30,Morning,Kochi,27.99,78
 2026-05-09 10:30,Morning,Bangalore,28.15,59
 2026-05-09 10:30,Morning,Mumbai,34.99,43
+2026-05-09 14:26,Afternoon,Kochi,31.99,71
+2026-05-09 14:26,Afternoon,Bangalore,31.29,50
+2026-05-09 14:26,Afternoon,Mumbai,34.99,59
