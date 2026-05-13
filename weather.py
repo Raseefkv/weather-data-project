@@ -16,9 +16,9 @@ utc = pytz.utc
 ist = pytz.timezone('Asia/Kolkata')
 
 def get_time_slot(hour):
-    if 9 <= hour <= 10:
+    if 9 <= hour <= 11:
         return "Morning"
-    elif 13 <= hour <= 14:
+    elif 13 <= hour <= 15:
         return "Afternoon"
     elif 21 <= hour <= 22:
         return "Night"
