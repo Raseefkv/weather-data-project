@@ -734,3 +734,6 @@ DateTime,TimeOfDay,City,Temp,Humidity
 2026-08-02 14:59,Afternoon,Kochi,25.62,88
 2026-08-02 14:59,Afternoon,Bangalore,29.74,53
 2026-08-02 14:59,Afternoon,Mumbai,28.56,80
+2026-08-02 21:04,Night,Kochi,25.42,89
+2026-08-02 21:04,Night,Bangalore,23.81,81
+2026-08-02 21:04,Night,Mumbai,28.29,80
