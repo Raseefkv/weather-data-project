@@ -950,3 +950,6 @@ DateTime,TimeOfDay,City,Temp,Humidity
 2026-08-26 21:38,Night,Kochi,24.95,94
 2026-08-26 21:38,Night,Bangalore,22.87,86
 2026-08-26 21:38,Night,Mumbai,28.99,79
+2026-08-27 11:06,Morning,Kochi,26.99,85
+2026-08-27 11:06,Morning,Bangalore,26.59,67
+2026-08-27 11:06,Morning,Mumbai,28.99,79
