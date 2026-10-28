@@ -1229,3 +1229,6 @@ DateTime,TimeOfDay,City,Temp,Humidity
 2026-10-28 14:18,Afternoon,Kochi,30.99,81
 2026-10-28 14:18,Afternoon,Bangalore,28.21,42
 2026-10-28 14:18,Afternoon,Mumbai,34.99,24
+2026-10-28 21:05,Night,Kochi,26.99,78
+2026-10-28 21:05,Night,Bangalore,21.89,65
+2026-10-28 21:05,Night,Mumbai,30.99,35
